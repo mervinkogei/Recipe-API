@@ -1,9 +1,11 @@
 // src/recipe/recipe.controller.ts
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, UseGuards } from '@nestjs/common';
 import { RecipeService } from './recipe.service';
 import { CreateRecipeDto, UpdateRecipeDto } from './dto/recipe.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('recipes')
+@UseGuards(AuthGuard('jwt'))
 export class RecipeController {
   constructor(private readonly recipeService: RecipeService) {}
 
