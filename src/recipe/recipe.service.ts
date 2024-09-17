@@ -2,12 +2,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Recipe } from './schemas/recipe.schema';
+import { Recipe } from '../schemas/recipe.schema';
 import { CreateRecipeDto, UpdateRecipeDto } from './dto/recipe.dto';
 
 @Injectable()
 export class RecipeService {
-  constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) {}
+  constructor(@InjectModel(Recipe.name) private recipeModel: Model<Recipe>) { }
 
   async create(createRecipeDto: CreateRecipeDto): Promise<Recipe> {
     const createdRecipe = new this.recipeModel(createRecipeDto);
@@ -32,7 +32,7 @@ export class RecipeService {
     if (!updatedRecipe) {
       throw new NotFoundException(`Recipe with ID ${id} not found`);
     }
-    
+
     return updatedRecipe;
   }
 }
